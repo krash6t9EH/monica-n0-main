@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGAMONI.CA | Monica - The Digital Human</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neural-cyan: #00f5ff;
+            --neural-purple: #c084fc;
+            --bg-dark: #020408;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, .display-font { font-family: 'Space Grotesk', sans-serif; }
+
+        /* --- THE NEURAL ATMOSPHERE (CSS ONLY) --- */
+        .neural-ambient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, var(--bg-dark) 80%);
+        }
+
+        .orb {
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes drift {
+            from { transform: translate(-10%, -10%) scale(1); }
+            to { transform: translate(10%, 10%) scale(1.1); }
+        }
+
+        /* --- 2026 GLASSMORPHISM --- */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 245, 255, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* --- BUTTONS: BIOLUMINESCENT --- */
+        .btn-neural {
+            background: #fff;
+            color: #000;
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-neural:hover {
+            background: var(--neural-cyan);
+            box-shadow: 0 0 30px var(--neural-cyan);
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--glass-border);
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            backdrop-filter: blur(10px);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--glass);
+            border-color: #fff;
+        }
+
+        /* --- TEXT GRADIENTS --- */
+        .hero-text {
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.4) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .accent-glow {
+            color: var(--neural-cyan);
+            text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
+        /* --- BENTO GRID BEHAVIOR --- */
+        .bento-item { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="neural-ambient">
+        <div class="orb" style="top: -10%; left: -10%; background: var(--neural-cyan);"></div>
+        <div class="orb" style="bottom: 10%; right: -10%; background: var(--neural-purple); animation-delay: -5s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-8 left-0 right-0 z-50 px-6">
+        <div class="max-w-6xl mx-auto glass-card py-4 px-8 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center font-bold text-black shadow-lg shadow-cyan-500/20">M</div>
+                <div>
+                    <h2 class="text-lg font-bold tracking-tighter leading-none">MONICA</h2>
+                    <p class="accent-glow">Neural Infrastructure</p>
+                </div>
+            </div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="tech.html" class="text-sm hover:text-cyan-400 transition uppercase tracking-widest font-bold">Tech Stack</a>
+                <a href="https://monica-agent-app.azurewebsites.net" target="_blank" class="btn-neural !py-2.5 !px-6 !text-xs">Talk to Monica</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-52 pb-32 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="accent-glow mb-6 block animate-pulse">Now Active in Saskatchewan & Beyond</span>
+            <h1 class="text-6xl md:text-8xl hero-text mb-8 tracking-tighter leading-none">Healthcare needs a <span class="italic font-light">new presence.</span></h1>
+            <p class="text-xl md:text-2xl text-slate-400 font-light mb-12 max-w-2xl mx-auto">
+                Monitoring of Neural Intelligence & Care Assistance. 
+                A companion that remembers, comforts, and never burns out.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#demo" class="btn-neural">Watch Experience</a>
+                <a href="tel:+1800MONICA" class="btn-outline font-bold uppercase text-xs tracking-widest">Call +1 (800) MONICA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Problem (Bento Concept) -->
+    <section class="max-w-6xl mx-auto px-6 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-8 glass-card p-12">
+                <h2 class="accent-glow mb-4">The Human Problem</h2>
+                <p class="text-3xl font-light text-slate-200 mb-6">"Long stretches of silence... waiting all day just to see someone."</p>
+                <p class="text-slate-400 leading-relaxed text-lg">Working in mobility equipment across Canada, I saw the loneliness epidemic first-hand. MONICA was created as a response to that human truth.</p>
+            </div>
+            <div class="md:col-span-4 glass-card p-8 flex items-center justify-center border-cyan-500/20">
+                <div class="text-center">
+                    <p class="text-5xl font-bold hero-text mb-2">10.4M</p>
+                    <p class="accent-glow text-[10px]">Projected Seniors by 2037</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Azure Infrastructure Sections -->
+    <section class="max-w-6xl mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-16 text-center">Built on <span class="text-cyan-400">Azure</span> Neural Architecture</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Box 1 -->
+            <div class="glass-card p-8 bento-item">
+                <div class="h-10 w-10 rounded-lg bg-cyan-500/20 mb-6 flex items-center justify-center">
+                    <svg class="text-cyan-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3 class="font-bold mb-3 text-lg">App Service</h3>
+                <p class="text-sm text-slate-400 font-light">Cognitive Core — reasoning and memory with clinical reliability.</p>
+            </div>
+            <!-- Box 2 -->
+            <div class="glass-card p-8 bento-item">
+                <div class="h-10 w-10 rounded-lg bg-purple-500/20 mb-6 flex items-center justify-center">
+                    <svg class="text-purple-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                </div>
+                <h3 class="font-bold mb-3 text-lg">Azure OpenAI</h3>
+                <p class="text-sm text-slate-400 font-light">Emotional Engine — real-time understanding and adaptive empathy.</p>
+            </div>
+            <!-- Box 3 -->
+            <div class="glass-card p-8 bento-item">
+                <div class="h-10 w-10 rounded-lg bg-rose-500/20 mb-6 flex items-center justify-center">
+                    <svg class="text-rose-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <h3 class="font-bold mb-3 text-lg">Communications</h3>
+                <p class="text-sm text-slate-400 font-light">The Lifeline — Connecting families and patients instantly.</p>
+            </div>
+            <!-- Box 4 -->
+            <div class="glass-card p-8 bento-item">
+                <div class="h-10 w-10 rounded-lg bg-emerald-500/20 mb-6 flex items-center justify-center">
+                    <svg class="text-emerald-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3 class="font-bold mb-3 text-lg">Static Apps</h3>
+                <p class="text-sm text-slate-400 font-light">The Digital Hand — A clean interface for families and clinicians.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Quote (Text focus) -->
+    <section class="max-w-4xl mx-auto px-6 py-32 text-center">
+        <h2 class="accent-glow mb-8">The Vision</h2>
+        <p class="text-3xl md:text-5xl hero-text font-light italic leading-tight mb-12">
+            "We have the technology to help—we just haven’t brought it to the people who need it most. MONICA is my answer to that."
+        </p>
+        <p class="text-lg font-bold uppercase tracking-widest text-white">The Digamoni Project</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pb-20 pt-10 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="accent-glow mb-4 text-xs opacity-50">Secure Connection Established</p>
+            <div class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.4em] space-y-2">
+                <div>DIGAMONI.CA — Digital Generative AI Monitoring In Canada</div>
+                <div>Monica — Monitoring Of Neural Intelligence & Care Assistance</div>
+                <div class="pt-4">&copy; 2026 Project. Verified by Azure Cognitive Services.</div>
+            </div>
+        </div>
+    </footer><>
+
+</body>
+</html>
