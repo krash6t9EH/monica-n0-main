@@ -3,240 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIGAMONI.CA | Monica - The Digital Human</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>MONICA | Agentic AI Companion for Aging with Dignity</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --neural-cyan: #00f5ff;
-            --neural-purple: #c084fc;
-            --bg-dark: #020408;
+            --midnight-blue: #0D1117;
+            --charcoal-deep: #161B22;
+            --hidden-gem: #4A7C9B;
+            --royal-accent: #6B5B95;
+            --gold-leaf: #D4AF37;
+            --cloud-dancer: #FDFDFD;
+            --pesto-green: #7A9B6C;
+            --olive-spruce: #4A5F3C;
+            --glass-frost: rgba(74, 124, 155, 0.08);
+            --border-glow: rgba(212, 175, 55, 0.15);
+            --text-muted: #B8B8B8;
         }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-dark);
-            color: #f8fafc;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, var(--midnight-blue) 0%, var(--charcoal-deep) 100%);
+            color: var(--cloud-dancer);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            font-size: 16px;
             line-height: 1.7;
         }
 
-        h1, h2, .display-font { font-family: 'Space Grotesk', sans-serif; }
-
-        /* --- THE NEURAL ATMOSPHERE (CSS ONLY) --- */
-        .neural-ambient {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, var(--bg-dark) 80%);
-        }
-
-        .orb {
-            position: absolute;
-            width: 600px; height: 600px;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
-            animation: drift 20s infinite alternate ease-in-out;
-        }
-
-        @keyframes drift {
-            from { transform: translate(-10%, -10%) scale(1); }
-            to { transform: translate(10%, 10%) scale(1.1); }
-        }
-
-        /* --- 2026 GLASSMORPHISM --- */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .glass-card:hover {
-            border-color: rgba(0, 245, 255, 0.3);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 40px rgba(0, 245, 255, 0.1);
-            transform: translateY(-5px);
-        }
-
-        /* --- BUTTONS: BIOLUMINESCENT --- */
-        .btn-neural {
-            background: #fff;
-            color: #000;
-            padding: 1rem 2.5rem;
-            border-radius: 100px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: all 0.4s var(--ease-out-expo);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-neural:hover {
-            background: var(--neural-cyan);
-            box-shadow: 0 0 30px var(--neural-cyan);
-            transform: scale(1.05);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--glass-border);
-            padding: 1rem 2.5rem;
-            border-radius: 100px;
-            backdrop-filter: blur(10px);
-            color: #fff;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline:hover {
-            background: var(--glass);
-            border-color: #fff;
-        }
-
-        /* --- TEXT GRADIENTS --- */
-        .hero-text {
-            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.4) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .accent-glow {
-            color: var(--neural-cyan);
-            text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+        h1, h2, h3, .font-display { 
             font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            font-size: 0.7rem;
+            letter-spacing: -0.02em;
+            font-variation-settings: 'wght' 700;
         }
 
-        /* --- BENTO GRID BEHAVIOR --- */
-        .bento-item { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        #neuralCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.4; }
+        .ambient-orb { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -2; animation: breathe 12s infinite alternate ease-in-out; opacity: 0.12; }
+        .orb-1 { top: -15%; left: -10%; width: 50vw; height: 50vw; background: var(--hidden-gem); }
+        .orb-2 { bottom: -15%; right: -10%; width: 55vw; height: 55vw; background: var(--gold-leaf); animation-delay: -6s; }
+        
+        @keyframes breathe { 
+            0% { transform: scale(1) translateX(0); opacity: 0.08; } 
+            100% { transform: scale(1.15) translateX(20px); opacity: 0.15; } 
+        }
 
+        .glass-panel {
+            background: linear-gradient(135deg, var(--glass-frost) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .glass-panel:hover { border-color: var(--gold-leaf); transform: translateY(-4px); }
+
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 20px 5%;
+            backdrop-filter: blur(10px); background: rgba(13, 17, 23, 0.8);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Space Grotesk'; font-weight: 700; font-size: 24px; color: var(--cloud-dancer); text-decoration: none; display: flex; align-items: center; }
+        .logo-icon { background: var(--gold-leaf); color: var(--midnight-blue); padding: 4px 10px; border-radius: 8px; margin-right: 10px; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--cloud-dancer); text-decoration: none; font-weight: 500; font-size: 14px; }
+
+        section { padding: 120px 5%; max-width: 1400px; margin: 0 auto; }
+        .hero { text-align: center; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .hero h1 { font-size: clamp(40px, 8vw, 80px); line-height: 1.1; margin-bottom: 24px; }
+        .gradient-text { background: linear-gradient(90deg, #FFF, var(--hidden-gem), var(--gold-leaf)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .performance-badge { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-size: 12px; text-align: center; }
+        #loadTime { font-size: 18px; color: var(--gold-leaf); display: block; font-weight: bold; }
+
+        .btn-investor {
+            background: linear-gradient(135deg, var(--hidden-gem), var(--gold-leaf));
+            color: white; padding: 16px 40px; border-radius: 100px; text-decoration: none; font-weight: 700; display: inline-block; cursor: pointer; border: none;
+        }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        
+        /* Impact Simulator Styles */
+        .xai-sandbox { max-width: 700px; margin: 40px auto; text-align: center; }
+        input[type="range"] { width: 100%; margin: 20px 0; accent-color: var(--gold-leaf); cursor: pointer; }
+        
+        .stat-row { display: flex; justify-content: space-around; margin-top: 25px; gap: 15px; }
+        .stat-card { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; flex: 1; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-val { display: block; font-size: 24px; font-weight: bold; color: var(--gold-leaf); font-family: 'Space Grotesk'; }
+        .stat-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+
+        /* Modal / Form Styles */
+        #demoModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 17, 23, 0.95); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .modal-content { max-width: 500px; width: 90%; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--gold-leaf); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            border-radius: 8px; color: white; outline: none; transition: 0.3s;
+        }
+        .form-group input:focus { border-color: var(--hidden-gem); }
+
+        @media (max-width: 768px) {
+            .nav-links a:not(.btn-investor) { display: none; }
+            .stat-row { flex-direction: column; }
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div class="neural-ambient">
-        <div class="orb" style="top: -10%; left: -10%; background: var(--neural-cyan);"></div>
-        <div class="orb" style="bottom: 10%; right: -10%; background: var(--neural-purple); animation-delay: -5s;"></div>
+<canvas id="neuralCanvas"></canvas>
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+
+<div id="demoModal">
+    <div class="glass-panel modal-content">
+        <h2 style="margin-bottom: 10px;">Request a Demo</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">Connect with the Monica Agentic Systems team.</p>
+        <form id="demoForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="senderName" required placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Work Email</label>
+                <input type="email" id="senderEmail" required placeholder="you@company.com">
+            </div>
+            <div class="form-group">
+                <label>Project Interest</label>
+                <textarea id="message" rows="3" placeholder="How can Monica help your organization?"></textarea>
+            </div>
+            <button type="submit" class="btn-investor" style="width: 100%;">Send Request</button>
+            <button type="button" onclick="closeDemo()" style="background:none; border:none; color: var(--text-muted); margin-top: 15px; cursor: pointer; width:100%;">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div class="performance-badge glass-panel" style="padding: 10px;">
+    <span id="loadTime">0.00</span>s
+    <span style="opacity: 0.6">Latency</span>
+</div>
+
+<nav>
+    <div class="nav-container">
+        <a href="#" class="logo"><span class="logo-icon">M</span> MONICA</a>
+        <div class="nav-links">
+            <a href="#tech">Technology</a>
+            <a href="#market">Market</a>
+            <button onclick="openDemo()" class="btn-investor" style="padding: 10px 25px;">Request Demo</button>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="glass-panel" style="border: none; background: transparent;">
+        <span style="color: var(--gold-leaf); text-transform: uppercase; letter-spacing: 2px;">Series A Ready • Q2 2026</span>
+        <h1 class="gradient-text">The First AI That<br>Never Forgets.</h1>
+        <p style="font-size: 20px; max-width: 700px; margin: 0 auto 40px; color: var(--text-muted);">
+            Monica is an agentic companion designed for the $3 trillion Silver Economy. 
+            She manages healthcare, prevents errors, and preserves dignity.
+        </p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <button onclick="openDemo()" class="btn-investor">Investor Pitch Deck</button>
+            <a href="#" class="glass-panel" style="padding: 16px 40px; text-decoration: none; color: white;">Senior Portal</a>
+        </div>
+    </div>
+</section>
+
+<section id="tech">
+    <h2 style="text-align: center; font-size: 40px;">Competitive Moats</h2>
+    <div class="feature-grid">
+        <div class="glass-panel">
+            <h3>🧠 Forever Memory™</h3>
+            <p>Persistent context across years using proprietary RAG retrieval on Azure Cosmos DB.</p>
+        </div>
+        <div class="glass-panel">
+            <h3>👁️ Vision Analytics</h3>
+            <p>Real-time medication verification identifying pill bottles and dosages via Azure AI.</p>
+        </div>
+        <div class="glass-panel">
+            <h3>🔒 HIPAA Compliant</h3>
+            <p>Built on Azure Government Cloud with zero-data-selling architecture.</p>
+        </div>
+    </div>
+</section>
+
+<section class="xai-sandbox glass-panel">
+    <h3>Wellness Impact Simulator</h3>
+    <p>Predicting how Monica's companionship shifts healthcare outcomes</p>
+    
+    <div style="margin-top: 30px;">
+        <label style="font-weight: 600; color: var(--hidden-gem);">Daily Interaction Time: <span id="hoursLabel">2</span> Hours</label>
+        <input type="range" id="companionSlider" min="0" max="12" step="0.5" value="2">
     </div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-8 left-0 right-0 z-50 px-6">
-        <div class="max-w-6xl mx-auto glass-card py-4 px-8 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center font-bold text-black shadow-lg shadow-cyan-500/20">M</div>
-                <div>
-                    <h2 class="text-lg font-bold tracking-tighter leading-none">MONICA</h2>
-                    <p class="accent-glow">Neural Infrastructure</p>
-                </div>
-            </div>
-            <div class="hidden md:flex gap-8 items-center">
-                <a href="tech.html" class="text-sm hover:text-cyan-400 transition uppercase tracking-widest font-bold">Tech Stack</a>
-                <a href="https://monica-agent-app.azurewebsites.net" target="_blank" class="btn-neural !py-2.5 !px-6 !text-xs">Talk to Monica</a>
-            </div>
+    <div class="stat-row">
+        <div class="stat-card">
+            <span class="stat-label">Happiness Index</span>
+            <span class="stat-val" id="valHappiness">40%</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="pt-52 pb-32 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <span class="accent-glow mb-6 block animate-pulse">Now Active in Saskatchewan & Beyond</span>
-            <h1 class="text-6xl md:text-8xl hero-text mb-8 tracking-tighter leading-none">Healthcare needs a <span class="italic font-light">new presence.</span></h1>
-            <p class="text-xl md:text-2xl text-slate-400 font-light mb-12 max-w-2xl mx-auto">
-                Monitoring of Neural Intelligence & Care Assistance. 
-                A companion that remembers, comforts, and never burns out.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="#demo" class="btn-neural">Watch Experience</a>
-                <a href="tel:+1800MONICA" class="btn-outline font-bold uppercase text-xs tracking-widest">Call +1 (800) MONICA</a>
-            </div>
+        <div class="stat-card">
+            <span class="stat-label">Medication Dependency</span>
+            <span class="stat-val" id="valMeds">High</span>
         </div>
-    </section>
-
-    <!-- The Problem (Bento Concept) -->
-    <section class="max-w-6xl mx-auto px-6 py-20">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div class="md:col-span-8 glass-card p-12">
-                <h2 class="accent-glow mb-4">The Human Problem</h2>
-                <p class="text-3xl font-light text-slate-200 mb-6">"Long stretches of silence... waiting all day just to see someone."</p>
-                <p class="text-slate-400 leading-relaxed text-lg">Working in mobility equipment across Canada, I saw the loneliness epidemic first-hand. MONICA was created as a response to that human truth.</p>
-            </div>
-            <div class="md:col-span-4 glass-card p-8 flex items-center justify-center border-cyan-500/20">
-                <div class="text-center">
-                    <p class="text-5xl font-bold hero-text mb-2">10.4M</p>
-                    <p class="accent-glow text-[10px]">Projected Seniors by 2037</p>
-                </div>
-            </div>
+        <div class="stat-card">
+            <span class="stat-label">Clinical Care Need</span>
+            <span class="stat-val" id="valCare">High</span>
         </div>
-    </section>
+    </div>
 
-    <!-- Azure Infrastructure Sections -->
-    <section class="max-w-6xl mx-auto px-6 py-20">
-        <h2 class="text-4xl font-bold mb-16 text-center">Built on <span class="text-cyan-400">Azure</span> Neural Architecture</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Box 1 -->
-            <div class="glass-card p-8 bento-item">
-                <div class="h-10 w-10 rounded-lg bg-cyan-500/20 mb-6 flex items-center justify-center">
-                    <svg class="text-cyan-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                </div>
-                <h3 class="font-bold mb-3 text-lg">App Service</h3>
-                <p class="text-sm text-slate-400 font-light">Cognitive Core — reasoning and memory with clinical reliability.</p>
-            </div>
-            <!-- Box 2 -->
-            <div class="glass-card p-8 bento-item">
-                <div class="h-10 w-10 rounded-lg bg-purple-500/20 mb-6 flex items-center justify-center">
-                    <svg class="text-purple-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                </div>
-                <h3 class="font-bold mb-3 text-lg">Azure OpenAI</h3>
-                <p class="text-sm text-slate-400 font-light">Emotional Engine — real-time understanding and adaptive empathy.</p>
-            </div>
-            <!-- Box 3 -->
-            <div class="glass-card p-8 bento-item">
-                <div class="h-10 w-10 rounded-lg bg-rose-500/20 mb-6 flex items-center justify-center">
-                    <svg class="text-rose-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
-                <h3 class="font-bold mb-3 text-lg">Communications</h3>
-                <p class="text-sm text-slate-400 font-light">The Lifeline — Connecting families and patients instantly.</p>
-            </div>
-            <!-- Box 4 -->
-            <div class="glass-card p-8 bento-item">
-                <div class="h-10 w-10 rounded-lg bg-emerald-500/20 mb-6 flex items-center justify-center">
-                    <svg class="text-emerald-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <h3 class="font-bold mb-3 text-lg">Static Apps</h3>
-                <p class="text-sm text-slate-400 font-light">The Digital Hand — A clean interface for families and clinicians.</p>
-            </div>
+    <div id="reasoningBox" style="margin-top: 25px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; min-height: 80px; display: flex; align-items: center; justify-content: center;">
+        <p id="outcomeText">Analyzing wellbeing data points...</p>
+    </div>
+</section>
+
+<section id="market">
+    <h2 style="text-align: center;">The Silver Economy</h2>
+    <div class="feature-grid" style="text-align: center;">
+        <div>
+            <h4 style="font-size: 50px; color: var(--gold-leaf);">75M+</h4>
+            <p>Seniors in NA by 2030</p>
         </div>
-    </section>
-
-    <!-- Founder Quote (Text focus) -->
-    <section class="max-w-4xl mx-auto px-6 py-32 text-center">
-        <h2 class="accent-glow mb-8">The Vision</h2>
-        <p class="text-3xl md:text-5xl hero-text font-light italic leading-tight mb-12">
-            "We have the technology to help—we just haven’t brought it to the people who need it most. MONICA is my answer to that."
-        </p>
-        <p class="text-lg font-bold uppercase tracking-widest text-white">The Digamoni Project</p>
-    </section>
-
-    <!-- Footer -->
-    <footer class="pb-20 pt-10 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="accent-glow mb-4 text-xs opacity-50">Secure Connection Established</p>
-            <div class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.4em] space-y-2">
-                <div>DIGAMONI.CA — Digital Generative AI Monitoring In Canada</div>
-                <div>Monica — Monitoring Of Neural Intelligence & Care Assistance</div>
-                <div class="pt-4">&copy; 2026 Project. Verified by Azure Cognitive Services.</div>
-            </div>
+        <div>
+            <h4 style="font-size: 50px; color: var(--gold-leaf);">$500B</h4>
+            <p>Annual Elder Care Spend</p>
         </div>
-    </footer><>
+        <div>
+            <h4 style="font-size: 50px; color: var(--gold-leaf);">12%</h4>
+            <p>Current AI Penetration</p>
+        </div>
+    </div>
+</section>
+
+<footer style="padding: 60px 5%; border-top: 1px solid var(--border-glow); text-align: center;">
+    <p>&copy; 2026 Monica Agentic Systems. Built on Microsoft Azure.</p>
+</footer>
+
+<script>
+    // 1. Performance Monitor
+    window.addEventListener('load', () => {
+        const time = (performance.now() / 1000).toFixed(2);
+        document.getElementById('loadTime').innerText = time;
+        updateImpact(2);
+    });
+
+    // 2. Demo Form Logic
+    const modal = document.getElementById('demoModal');
+    function openDemo() { modal.style.display = 'flex'; }
+    function closeDemo() { modal.style.display = 'none'; }
+
+    document.getElementById('demoForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('senderName').value;
+        const msg = document.getElementById('message').value;
+        const recipient = "michael@digamoni.ca";
+        const subject = encodeURIComponent("Monica Demo Request");
+        const body = encodeURIComponent(`Name: ${name}\n\nInterest: ${msg}`);
+        
+        // Triggers the mail client as requested
+        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+        closeDemo();
+        alert("Thank you! Opening your email client to complete the request.");
+    });
+
+    // 3. Neural Background Animation
+    const canvas = document.getElementById('neuralCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function initCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+        }
+        draw() {
+            ctx.fillStyle = '#4A7C9B';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+    
+    initCanvas();
+    animate();
+    window.addEventListener('resize', initCanvas);
+
+    // 4. Wellness Simulator Logic
+    const slider = document.getElementById('companionSlider');
+    const hoursLabel = document.getElementById('hoursLabel');
+    const valHappiness = document.getElementById('valHappiness');
+    const valMeds = document.getElementById('valMeds');
+    const valCare = document.getElementById('valCare');
+    const outcomeText = document.getElementById('outcomeText');
+
+    function updateImpact(hours) {
+        hoursLabel.innerText = hours;
+        const happiness = Math.min(100, Math.round((hours / 12) * 80) + 20);
+        valHappiness.innerText = `${happiness}%`;
+
+        if (hours < 3) {
+            valMeds.innerText = "High";
+            valMeds.style.color = "#ff4d4d";
+            valCare.innerText = "Urgent";
+            valCare.style.color = "#ff4d4d";
+            outcomeText.innerHTML = `<span style="color: #ff4d4d;">⚠️ ALERT: Minimal engagement detected. High risk of cognitive decline.</span>`;
+        } else if (hours >= 3 && hours < 8) {
+            valMeds.innerText = "Stable";
+            valMeds.style.color = "var(--gold-leaf)";
+            valCare.innerText = "Managed";
+            valCare.style.color = "var(--gold-leaf)";
+            outcomeText.innerHTML = `<span style="color: var(--gold-leaf);">⚖️ BALANCE: Social stimulation is regulating mood effectively.</span>`;
+        } else {
+            valMeds.innerText = "Minimal";
+            valMeds.style.color = "var(--pesto-green)";
+            valCare.innerText = "Independent";
+            valCare.style.color = "var(--pesto-green)";
+            outcomeText.innerHTML = `<span style="color: var(--pesto-green);">✨ PEAK WELLNESS: Maximum companionship correlates with total independence.</span>`;
+        }
+    }
+
+    slider.addEventListener('input', (e) => {
+        updateImpact(parseFloat(e.target.value));
+    });
+</script>
 
 </body>
 </html>
