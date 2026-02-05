@@ -126,7 +126,7 @@
 <div id="demoModal">
     <div class="glass-panel modal-content">
         <h2 style="margin-bottom: 10px;">Request a Demo</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px;">Connecting you directly to Monica Neural Systems.</p>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">Foundry IQ Neural Gateway Submission.</p>
         <form id="demoForm">
             <div class="form-group">
                 <label>Full Name</label>
@@ -243,7 +243,7 @@
 </section>
 
 <footer style="padding: 60px 5%; border-top: 1px solid var(--border-glow); text-align: center;">
-    <p>&copy; 2026 Monica Neural Systems. Built on Microsoft Azure.</p>
+    <p>&copy; 2026 Monica Neural Systems. Built on Foundry IQ.</p>
 </footer>
 
 <script>
@@ -260,7 +260,7 @@
     document.getElementById('demoForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerText = "Sending via Azure...";
+        submitBtn.innerText = "Connecting to Foundry IQ...";
         submitBtn.disabled = true;
 
         const payload = {
@@ -277,10 +277,10 @@
             });
 
             if (response.ok) {
-                alert("Success! Michael has received your request via Azure.");
+                alert("Success! Request sent via Foundry IQ.");
                 closeDemo();
             } else {
-                throw new Error("Submission Failed");
+                throw new Error("Link Failed");
             }
         } catch (error) {
             alert("Connection error. Ensure your Node server is running.");
