@@ -128,7 +128,7 @@
 <div id="demoModal">
     <div class="glass-panel modal-content">
         <h2 style="margin-bottom: 10px;">Request a Demo</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px;">Connect with the Monica Agentic Systems team.</p>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">Direct Azure API submission to Michael.</p>
         <form id="demoForm">
             <div class="form-group">
                 <label>Full Name</label>
@@ -142,7 +142,7 @@
                 <label>Project Interest</label>
                 <textarea id="message" rows="3" placeholder="How can Monica help your organization?"></textarea>
             </div>
-            <button type="submit" class="btn-investor" style="width: 100%;">Send Request</button>
+            <button type="submit" id="submitBtn" class="btn-investor" style="width: 100%;">Send Request</button>
             <button type="button" onclick="closeDemo()" style="background:none; border:none; color: var(--text-muted); margin-top: 15px; cursor: pointer; width:100%;">Cancel</button>
         </form>
     </div>
@@ -256,23 +256,43 @@
         updateImpact(2);
     });
 
-    // 2. Demo Form Logic
+    // 2. Demo Form Logic (AZURE INTEGRATION)
     const modal = document.getElementById('demoModal');
     function openDemo() { modal.style.display = 'flex'; }
     function closeDemo() { modal.style.display = 'none'; }
 
-    document.getElementById('demoForm').addEventListener('submit', (e) => {
+    document.getElementById('demoForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = document.getElementById('senderName').value;
-        const msg = document.getElementById('message').value;
-        const recipient = "michael@digamoni.ca";
-        const subject = encodeURIComponent("Monica Demo Request");
-        const body = encodeURIComponent(`Name: ${name}\n\nInterest: ${msg}`);
-        
-        // Triggers the mail client as requested
-        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-        closeDemo();
-        alert("Thank you! Opening your email client to complete the request.");
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = "Sending via Azure...";
+        submitBtn.disabled = true;
+
+        const payload = {
+            name: document.getElementById('senderName').value,
+            email: document.getElementById('senderEmail').value,
+            message: document.getElementById('message').value
+        };
+
+        try {
+            // This calls your Node.js backend which uses the Azure Connection String
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                alert("Success! Michael has received your request via Azure.");
+                closeDemo();
+            } else {
+                throw new Error("Azure Link Failed");
+            }
+        } catch (error) {
+            alert("Connection error. Please ensure your Node server is running.");
+        } finally {
+            submitBtn.innerText = "Send Request";
+            submitBtn.disabled = false;
+        }
     });
 
     // 3. Neural Background Animation
