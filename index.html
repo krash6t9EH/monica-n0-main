@@ -299,9 +299,9 @@
             message: document.getElementById('message').value
         };
 
-        // TARGET URL: Corrected to point to 'azure-node' function
-        // Ensure your function in the Azure Portal is literally named "azure-node"
-        const azureFunctionUrl = 'https://azure-node-aubzh5b6cfava3dz.canadacentral-01.azurewebsites.net/api/azure-node';
+        // TARGET URL: Corrected to point to 'EMAIL1' function
+        // Note: The host URL remains the same, but the final segment is now EMAIL1
+        const azureFunctionUrl = 'https://azure-node-aubzh5b6cfava3dz.canadacentral-01.azurewebsites.net/api/EMAIL1';
 
         try {
             const response = await fetch(azureFunctionUrl, {
@@ -311,7 +311,7 @@
             });
 
             if (response.ok) {
-                alert("Success! Your request has been sent via Azure.");
+                alert("Success! Your request has been sent to EMAIL1 via Azure.");
                 closeDemo();
                 document.getElementById('demoForm').reset();
             } else {
@@ -320,7 +320,7 @@
             }
         } catch (error) {
             console.error("Transmission Failed:", error);
-            alert("Error sending email: " + error.message + "\n\n(Tip: Ensure CORS is enabled and function is named 'azure-node')");
+            alert("Error sending email: " + error.message + "\n\n(Tip: Ensure CORS is enabled and function is named 'EMAIL1')");
         } finally {
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
