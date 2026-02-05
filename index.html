@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MONICA | Agentic AI Companion for Aging with Dignity</title>
+    <title>MONICA | Neural AI Companion for Aging with Dignity</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,6 @@
 
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
         
-        /* Impact Simulator Styles */
         .xai-sandbox { max-width: 700px; margin: 40px auto; text-align: center; }
         input[type="range"] { width: 100%; margin: 20px 0; accent-color: var(--gold-leaf); cursor: pointer; }
         
@@ -99,7 +98,6 @@
         .stat-val { display: block; font-size: 24px; font-weight: bold; color: var(--gold-leaf); font-family: 'Space Grotesk'; }
         .stat-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
 
-        /* Modal / Form Styles */
         #demoModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(13, 17, 23, 0.95); z-index: 2000; justify-content: center; align-items: center;
@@ -128,7 +126,7 @@
 <div id="demoModal">
     <div class="glass-panel modal-content">
         <h2 style="margin-bottom: 10px;">Request a Demo</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px;">Direct Azure API submission to Michael.</p>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">Connecting you directly to Monica Neural Systems.</p>
         <form id="demoForm">
             <div class="form-group">
                 <label>Full Name</label>
@@ -169,7 +167,7 @@
         <span style="color: var(--gold-leaf); text-transform: uppercase; letter-spacing: 2px;">Series A Ready • Q2 2026</span>
         <h1 class="gradient-text">The First AI That<br>Never Forgets.</h1>
         <p style="font-size: 20px; max-width: 700px; margin: 0 auto 40px; color: var(--text-muted);">
-            Monica is an agentic companion designed for the $3 trillion Silver Economy. 
+            Monica is a neural companion designed for the $3 trillion Silver Economy. 
             She manages healthcare, prevents errors, and preserves dignity.
         </p>
         <div style="display: flex; gap: 20px; justify-content: center;">
@@ -245,18 +243,16 @@
 </section>
 
 <footer style="padding: 60px 5%; border-top: 1px solid var(--border-glow); text-align: center;">
-    <p>&copy; 2026 Monica Agentic Systems. Built on Microsoft Azure.</p>
+    <p>&copy; 2026 Monica Neural Systems. Built on Microsoft Azure.</p>
 </footer>
 
 <script>
-    // 1. Performance Monitor
     window.addEventListener('load', () => {
         const time = (performance.now() / 1000).toFixed(2);
         document.getElementById('loadTime').innerText = time;
         updateImpact(2);
     });
 
-    // 2. Demo Form Logic (AZURE INTEGRATION)
     const modal = document.getElementById('demoModal');
     function openDemo() { modal.style.display = 'flex'; }
     function closeDemo() { modal.style.display = 'none'; }
@@ -274,7 +270,6 @@
         };
 
         try {
-            // This calls your Node.js backend which uses the Azure Connection String
             const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -285,17 +280,16 @@
                 alert("Success! Michael has received your request via Azure.");
                 closeDemo();
             } else {
-                throw new Error("Azure Link Failed");
+                throw new Error("Submission Failed");
             }
         } catch (error) {
-            alert("Connection error. Please ensure your Node server is running.");
+            alert("Connection error. Ensure your Node server is running.");
         } finally {
             submitBtn.innerText = "Send Request";
             submitBtn.disabled = false;
         }
     });
 
-    // 3. Neural Background Animation
     const canvas = document.getElementById('neuralCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -344,7 +338,6 @@
     animate();
     window.addEventListener('resize', initCanvas);
 
-    // 4. Wellness Simulator Logic
     const slider = document.getElementById('companionSlider');
     const hoursLabel = document.getElementById('hoursLabel');
     const valHappiness = document.getElementById('valHappiness');
