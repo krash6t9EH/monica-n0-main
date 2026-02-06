@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "monica-files": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\LENOVO\\Documents\\GitHub\\monica-n0-main"
+      ]
+    }
+  }
+}

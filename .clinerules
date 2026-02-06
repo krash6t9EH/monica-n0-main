@@ -1,0 +1,4 @@
+# Security Protocol
+1. **NEVER** print API keys, secrets, or tokens to the terminal or chat output.
+2. **NEVER** read files that contain secrets into the chat context.
+3. When a user needs to configure credentials, **ONLY** provide the file path and instructions for the user to edit the file manually.
