@@ -25,95 +25,121 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background: linear-gradient(135deg, var(--midnight-blue) 0%, var(--charcoal-deep) 100%);
+            background: var(--midnight-blue);
             color: var(--cloud-dancer);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             scroll-behavior: smooth;
-            font-size: 16px;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         h1, h2, h3, .font-display { 
             font-family: 'Space Grotesk', sans-serif;
             letter-spacing: -0.02em;
-            font-variation-settings: 'wght' 700;
         }
 
-        #neuralCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.4; }
-        .ambient-orb { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -2; animation: breathe 12s infinite alternate ease-in-out; opacity: 0.12; }
-        .orb-1 { top: -15%; left: -10%; width: 50vw; height: 50vw; background: var(--hidden-gem); }
-        .orb-2 { bottom: -15%; right: -10%; width: 55vw; height: 55vw; background: var(--gold-leaf); animation-delay: -6s; }
+        /* Neural Canvas Background */
+        #neuralCanvas { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0.5; 
+        }
+
+        .ambient-orb { 
+            position: fixed; 
+            border-radius: 50%; 
+            filter: blur(120px); 
+            z-index: -2; 
+            animation: breathe 12s infinite alternate ease-in-out; 
+            opacity: 0.15; 
+        }
+        .orb-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: var(--hidden-gem); }
+        .orb-2 { bottom: -10%; right: -10%; width: 45vw; height: 45vw; background: var(--gold-leaf); animation-delay: -6s; }
         
         @keyframes breathe { 
-            0% { transform: scale(1) translateX(0); opacity: 0.08; } 
-            100% { transform: scale(1.15) translateX(20px); opacity: 0.15; } 
+            0% { transform: scale(1) translate(0, 0); } 
+            100% { transform: scale(1.1) translate(30px, -20px); } 
         }
 
+        /* UI Elements */
         .glass-panel {
-            background: linear-gradient(135deg, var(--glass-frost) 0%, rgba(255,255,255,0.02) 100%);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-glow);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px;
-            transition: all 0.4s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .glass-panel:hover { border-color: var(--gold-leaf); transform: translateY(-4px); }
+        .glass-panel:hover { border-color: var(--gold-leaf); transform: translateY(-5px); }
 
         nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 20px 5%;
-            backdrop-filter: blur(10px); background: rgba(13, 17, 23, 0.8);
+            position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 5%;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: rgba(13, 17, 23, 0.7);
             border-bottom: 1px solid var(--border-glow);
         }
 
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Space Grotesk'; font-weight: 700; font-size: 24px; color: var(--cloud-dancer); text-decoration: none; display: flex; align-items: center; }
-        .logo-icon { background: var(--gold-leaf); color: var(--midnight-blue); padding: 4px 10px; border-radius: 8px; margin-right: 10px; }
-        .nav-links { display: flex; gap: 32px; align-items: center; }
-        .nav-links a { color: var(--cloud-dancer); text-decoration: none; font-weight: 500; font-size: 14px; }
-
-        section { padding: 120px 5%; max-width: 1400px; margin: 0 auto; }
-        .hero { text-align: center; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .hero h1 { font-size: clamp(40px, 8vw, 80px); line-height: 1.1; margin-bottom: 24px; }
-        .gradient-text { background: linear-gradient(90deg, #FFF, var(--hidden-gem), var(--gold-leaf)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-icon { background: var(--gold-leaf); color: var(--midnight-blue); padding: 4px 12px; border-radius: 8px; margin-right: 12px; }
         
-        .performance-badge { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-size: 12px; text-align: center; }
-        #loadTime { font-size: 18px; color: var(--gold-leaf); display: block; font-weight: bold; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--cloud-dancer); text-decoration: none; font-weight: 500; font-size: 14px; opacity: 0.8; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--gold-leaf); }
 
+        section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
+        
+        .hero { text-align: center; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .hero h1 { font-size: clamp(45px, 8vw, 85px); line-height: 1.05; margin-bottom: 24px; font-weight: 700; }
+        .gradient-text { background: linear-gradient(90deg, #FFFFFF 30%, var(--hidden-gem), var(--gold-leaf)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
         .btn-investor {
             background: linear-gradient(135deg, var(--hidden-gem), var(--gold-leaf));
-            color: white; padding: 16px 40px; border-radius: 100px; text-decoration: none; font-weight: 700; display: inline-block; cursor: pointer; border: none;
+            color: white; padding: 18px 44px; border-radius: 100px; text-decoration: none; font-weight: 700; 
+            cursor: pointer; border: none; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
+        .btn-investor:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .btn-investor:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 60px; }
         
-        .xai-sandbox { max-width: 700px; margin: 40px auto; text-align: center; }
-        input[type="range"] { width: 100%; margin: 20px 0; accent-color: var(--gold-leaf); cursor: pointer; }
-        
-        .stat-row { display: flex; justify-content: space-around; margin-top: 25px; gap: 15px; }
-        .stat-card { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; flex: 1; border: 1px solid rgba(255,255,255,0.05); }
-        .stat-val { display: block; font-size: 24px; font-weight: bold; color: var(--gold-leaf); font-family: 'Space Grotesk'; }
-        .stat-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        /* Stats & Simulator */
+        .stat-row { display: flex; justify-content: space-around; margin-top: 30px; gap: 20px; }
+        .stat-card { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 16px; flex: 1; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-val { display: block; font-size: 28px; font-weight: bold; color: var(--gold-leaf); font-family: 'Space Grotesk'; }
+        .stat-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; }
 
+        input[type="range"] { width: 100%; margin: 25px 0; accent-color: var(--gold-leaf); cursor: pointer; }
+
+        /* Modal */
         #demoModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(13, 17, 23, 0.95); z-index: 2000; justify-content: center; align-items: center;
         }
-        .modal-content { max-width: 500px; width: 90%; }
+        .modal-content { max-width: 500px; width: 90%; position: relative; }
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--gold-leaf); }
         .form-group input, .form-group textarea {
-            width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
-            border-radius: 8px; color: white; outline: none; transition: 0.3s;
+            width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            border-radius: 12px; color: white; outline: none; transition: 0.3s; font-family: inherit;
         }
-        .form-group input:focus { border-color: var(--hidden-gem); }
+        .form-group input:focus { border-color: var(--gold-leaf); background: rgba(255,255,255,0.1); }
+
+        .performance-badge { position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-size: 12px; }
 
         @media (max-width: 768px) {
             .nav-links a:not(.btn-investor) { display: none; }
             .stat-row { flex-direction: column; }
+            .hero h1 { font-size: 48px; }
         }
     </style>
 </head>
@@ -125,30 +151,31 @@
 
 <div id="demoModal">
     <div class="glass-panel modal-content">
-        <h2 style="margin-bottom: 10px;">Request a Demo</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px;">Foundry IQ Neural Gateway Submission.</p>
-        <form id="demoForm">
+        <h2 style="margin-bottom: 8px;">Request a Demo</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 14px;">Foundry IQ Neural Gateway Submission.</p>
+        
+        <form id="contact-form" action="https://formspree.io/f/xaqdwvdg" method="POST">
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" id="senderName" required placeholder="Enter your name">
+                <input type="text" name="name" required placeholder="Jane Doe">
             </div>
             <div class="form-group">
                 <label>Work Email</label>
-                <input type="email" id="senderEmail" required placeholder="you@company.com">
+                <input type="email" name="email" required placeholder="jane@healthcare.com">
             </div>
             <div class="form-group">
                 <label>Project Interest</label>
-                <textarea id="message" rows="3" placeholder="How can Monica help your organization?"></textarea>
+                <textarea name="message" rows="3" placeholder="How can Monica assist you?"></textarea>
             </div>
-            <button type="submit" id="submitBtn" class="btn-investor" style="width: 100%;">Send Request</button>
-            <button type="button" onclick="closeDemo()" style="background:none; border:none; color: var(--text-muted); margin-top: 15px; cursor: pointer; width:100%;">Cancel</button>
+            <button type="submit" id="submit-btn" class="btn-investor" style="width: 100%;">Send Request</button>
+            <p id="form-status" style="text-align: center; margin-top: 15px; font-size: 13px; color: var(--gold-leaf);"></p>
+            <button type="button" onclick="closeDemo()" style="background:none; border:none; color: var(--text-muted); margin-top: 15px; cursor: pointer; width:100%; font-size: 13px;">Dismiss</button>
         </form>
     </div>
 </div>
 
-<div class="performance-badge glass-panel" style="padding: 10px;">
-    <span id="loadTime">0.00</span>s
-    <span style="opacity: 0.6">Latency</span>
+<div class="performance-badge glass-panel" style="padding: 10px 20px; border-radius: 12px;">
+    <span id="loadTime">0.00</span>s <span style="opacity: 0.6; margin-left: 5px;">Latency</span>
 </div>
 
 <nav>
@@ -157,50 +184,51 @@
         <div class="nav-links">
             <a href="#tech">Technology</a>
             <a href="#market">Market</a>
-            <button onclick="openDemo()" class="btn-investor" style="padding: 10px 25px;">Request Demo</button>
+            <button onclick="openDemo()" class="btn-investor" style="padding: 10px 25px; font-size: 13px;">Request a Demo</button>
         </div>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="glass-panel" style="border: none; background: transparent;">
-        <span style="color: var(--gold-leaf); text-transform: uppercase; letter-spacing: 2px;">Series A Ready • Q2 2026</span>
+    <div style="z-index: 1;">
+        <span style="color: var(--gold-leaf); text-transform: uppercase; letter-spacing: 3px; font-weight: 700; font-size: 12px; display: block; margin-bottom: 15px;">Series A • Q2 2026</span>
         <h1 class="gradient-text">The First AI That<br>Never Forgets.</h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 0 auto 40px; color: var(--text-muted);">
-            Monica is a neural companion designed for the $3 trillion Silver Economy. 
-            She manages healthcare, prevents errors, and preserves dignity.
+        <p style="font-size: 20px; max-width: 720px; margin: 0 auto 40px; color: var(--text-muted);">
+            Monica is a neural companion engineered for the $3T Silver Economy. 
+            She manages complex healthcare, prevents cognitive isolation, and preserves human dignity.
         </p>
-        <div style="display: flex; gap: 20px; justify-content: center;">
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
             <button onclick="openDemo()" class="btn-investor">Investor Pitch Deck</button>
-            <a href="#" class="glass-panel" style="padding: 16px 40px; text-decoration: none; color: white;">Senior Portal</a>
+            <a href="#" class="glass-panel" style="padding: 18px 44px; text-decoration: none; color: white; border-radius: 100px; font-weight: 600;">Explore Portal</a>
         </div>
     </div>
 </section>
 
 <section id="tech">
-    <h2 style="text-align: center; font-size: 40px;">Competitive Moats</h2>
+    <h2 style="text-align: center; font-size: 42px; margin-bottom: 10px;">Competitive Moats</h2>
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px;">Unfair advantages in the elder-tech space.</p>
     <div class="feature-grid">
         <div class="glass-panel">
-            <h3>🧠 Forever Memory™</h3>
-            <p>Persistent context across years using proprietary RAG retrieval on Azure Cosmos DB.</p>
+            <h3 style="margin-bottom: 15px; color: var(--gold-leaf);">🧠 Forever Memory™</h3>
+            <p style="font-size: 15px; color: var(--text-muted);">Persistent multi-year context utilizing proprietary RAG architectures on Azure Cosmos DB. Monica remembers birthdays, favorite stories, and specific care needs.</p>
         </div>
         <div class="glass-panel">
-            <h3>👁️ Vision Analytics</h3>
-            <p>Real-time medication verification identifying pill bottles and dosages via Azure AI.</p>
+            <h3 style="margin-bottom: 15px; color: var(--gold-leaf);">👁️ Vision Analytics</h3>
+            <p style="font-size: 15px; color: var(--text-muted);">Real-time medication safety checks. Identifies pill bottles, monitors fall risks, and verifies dosages via edge-processed Azure AI Vision.</p>
         </div>
         <div class="glass-panel">
-            <h3>🔒 HIPAA Compliant</h3>
-            <p>Built on Azure Government Cloud with zero-data-selling architecture.</p>
+            <h3 style="margin-bottom: 15px; color: var(--gold-leaf);">🔒 HIPAA Sovereignty</h3>
+            <p style="font-size: 15px; color: var(--text-muted);">Built exclusively on Azure Government Cloud. Zero-data-selling architecture ensures that medical history stays between the user and their family.</p>
         </div>
     </div>
 </section>
 
-<section class="xai-sandbox glass-panel">
+<section class="glass-panel" style="max-width: 900px; margin: 40px auto; text-align: center;">
     <h3>Wellness Impact Simulator</h3>
-    <p>Predicting how Monica's companionship shifts healthcare outcomes</p>
+    <p style="color: var(--text-muted); margin-top: 10px;">Modeling the correlation between neural companionship and clinical outcomes.</p>
     
-    <div style="margin-top: 30px;">
-        <label style="font-weight: 600; color: var(--hidden-gem);">Daily Interaction Time: <span id="hoursLabel">2</span> Hours</label>
+    <div style="margin-top: 35px;">
+        <label style="font-weight: 700; color: var(--hidden-gem); font-size: 18px;">Interaction: <span id="hoursLabel" style="color: var(--gold-leaf);">2</span> Hours/Day</label>
         <input type="range" id="companionSlider" min="0" max="12" step="0.5" value="2">
     </div>
 
@@ -210,86 +238,75 @@
             <span class="stat-val" id="valHappiness">40%</span>
         </div>
         <div class="stat-card">
-            <span class="stat-label">Medication Dependency</span>
+            <span class="stat-label">Medication Error Risk</span>
             <span class="stat-val" id="valMeds">High</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Clinical Care Need</span>
-            <span class="stat-val" id="valCare">High</span>
+            <span class="stat-val" id="valCare">Urgent</span>
         </div>
     </div>
 
-    <div id="reasoningBox" style="margin-top: 25px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; min-height: 80px; display: flex; align-items: center; justify-content: center;">
-        <p id="outcomeText">Analyzing wellbeing data points...</p>
-    </div>
-</section>
-
-<section id="market">
-    <h2 style="text-align: center;">The Silver Economy</h2>
-    <div class="feature-grid" style="text-align: center;">
-        <div>
-            <h4 style="font-size: 50px; color: var(--gold-leaf);">75M+</h4>
-            <p>Seniors in NA by 2030</p>
-        </div>
-        <div>
-            <h4 style="font-size: 50px; color: var(--gold-leaf);">$500B</h4>
-            <p>Annual Elder Care Spend</p>
-        </div>
-        <div>
-            <h4 style="font-size: 50px; color: var(--gold-leaf);">12%</h4>
-            <p>Current AI Penetration</p>
-        </div>
+    <div id="reasoningBox" style="margin-top: 30px; padding: 25px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px dashed var(--border-glow);">
+        <p id="outcomeText" style="font-weight: 500;">Initializing wellbeing analytics...</p>
     </div>
 </section>
 
-<footer style="padding: 60px 5%; border-top: 1px solid var(--border-glow); text-align: center;">
-    <p>&copy; 2026 Monica Neural Systems. Built on Foundry IQ.</p>
+<footer style="padding: 80px 5%; border-top: 1px solid var(--border-glow); text-align: center; opacity: 0.6; font-size: 14px;">
+    <p>&copy; 2026 Monica Neural Systems. All Rights Reserved. <br> Powered by Foundry IQ & Azure Health Stack.</p>
 </footer>
 
 <script>
+    // Performance Monitor
     window.addEventListener('load', () => {
         const time = (performance.now() / 1000).toFixed(2);
         document.getElementById('loadTime').innerText = time;
         updateImpact(2);
     });
 
+    // Modal Logic
     const modal = document.getElementById('demoModal');
     function openDemo() { modal.style.display = 'flex'; }
     function closeDemo() { modal.style.display = 'none'; }
 
-    document.getElementById('demoForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerText = "Connecting to Foundry IQ...";
+    // AJAX Submission Script (The "Stick-on-Website" Logic)
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+    const submitBtn = document.getElementById("submit-btn");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
         submitBtn.disabled = true;
-
-        const payload = {
-            name: document.getElementById('senderName').value,
-            email: document.getElementById('senderEmail').value,
-            message: document.getElementById('message').value
-        };
-
-        try {
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
+        submitBtn.innerText = "Sending Request...";
+        
+        const data = new FormData(event.target);
+        
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
             if (response.ok) {
-                alert("Success! Request sent via Foundry IQ.");
-                closeDemo();
+                status.innerHTML = "✨ Connection Established. Monica will reach out soon.";
+                submitBtn.innerText = "Request Sent";
+                form.reset();
+                setTimeout(() => { closeDemo(); }, 3000); // Closes modal after 3 seconds
             } else {
-                throw new Error("Link Failed");
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        status.innerHTML = "Oops! Something went wrong.";
+                    }
+                });
             }
-        } catch (error) {
-            alert("Connection error. Ensure your Node server is running.");
-        } finally {
-            submitBtn.innerText = "Send Request";
-            submitBtn.disabled = false;
-        }
-    });
+        }).catch(error => {
+            status.innerHTML = "Oops! Network error occurred.";
+        });
+    }
+    form.addEventListener("submit", handleSubmit);
 
+    // Neural Background Animation
     const canvas = document.getElementById('neuralCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -300,37 +317,33 @@
     }
 
     class Particle {
-        constructor() {
+        constructor() { this.reset(); }
+        reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2;
-            this.speedX = Math.random() * 0.5 - 0.25;
-            this.speedY = Math.random() * 0.5 - 0.25;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = Math.random() * 0.4 - 0.2;
+            this.speedY = Math.random() * 0.4 - 0.2;
+            this.life = Math.random() * 0.5 + 0.2;
         }
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
-            if (this.x > canvas.width) this.x = 0;
-            if (this.x < 0) this.x = canvas.width;
-            if (this.y > canvas.height) this.y = 0;
-            if (this.y < 0) this.y = canvas.height;
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
         }
         draw() {
-            ctx.fillStyle = '#4A7C9B';
+            ctx.fillStyle = `rgba(74, 124, 155, ${this.life})`;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
     }
 
-    for (let i = 0; i < 80; i++) particles.push(new Particle());
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
+        particles.forEach(p => { p.update(); p.draw(); });
         requestAnimationFrame(animate);
     }
     
@@ -338,6 +351,7 @@
     animate();
     window.addEventListener('resize', initCanvas);
 
+    // Simulator Logic
     const slider = document.getElementById('companionSlider');
     const hoursLabel = document.getElementById('hoursLabel');
     const valHappiness = document.getElementById('valHappiness');
@@ -347,27 +361,27 @@
 
     function updateImpact(hours) {
         hoursLabel.innerText = hours;
-        const happiness = Math.min(100, Math.round((hours / 12) * 80) + 20);
+        const happiness = Math.min(100, Math.round((hours / 12) * 75) + 25);
         valHappiness.innerText = `${happiness}%`;
 
         if (hours < 3) {
-            valMeds.innerText = "High";
+            valMeds.innerText = "High Risk";
             valMeds.style.color = "#ff4d4d";
             valCare.innerText = "Urgent";
             valCare.style.color = "#ff4d4d";
-            outcomeText.innerHTML = `<span style="color: #ff4d4d;">⚠️ ALERT: Minimal engagement detected. High risk of cognitive decline.</span>`;
+            outcomeText.innerHTML = `<span style="color: #ff4d4d;">⚠️ ALERT: Minimal cognitive engagement. Risk of isolation and medication errors is high.</span>`;
         } else if (hours >= 3 && hours < 8) {
             valMeds.innerText = "Stable";
             valMeds.style.color = "var(--gold-leaf)";
-            valCare.innerText = "Managed";
+            valCare.innerText = "Standard";
             valCare.style.color = "var(--gold-leaf)";
-            outcomeText.innerHTML = `<span style="color: var(--gold-leaf);">⚖️ BALANCE: Social stimulation is regulating mood effectively.</span>`;
+            outcomeText.innerHTML = `<span style="color: var(--gold-leaf);">⚖️ BALANCE: Consistent interaction is maintaining baseline cognitive health.</span>`;
         } else {
-            valMeds.innerText = "Minimal";
+            valMeds.innerText = "Optimal";
             valMeds.style.color = "var(--pesto-green)";
-            valCare.innerText = "Independent";
+            valCare.innerText = "Preventative";
             valCare.style.color = "var(--pesto-green)";
-            outcomeText.innerHTML = `<span style="color: var(--pesto-green);">✨ PEAK WELLNESS: Maximum companionship correlates with total independence.</span>`;
+            outcomeText.innerHTML = `<span style="color: var(--pesto-green);">✨ PEAK WELLBEING: Continuous neural companionship correlates with 40% higher independence.</span>`;
         }
     }
 
