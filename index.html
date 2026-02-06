@@ -152,20 +152,20 @@
     <div class="glass-panel modal-content">
         <h2 style="margin-bottom: 8px;">Request a Demo</h2>
         <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 14px;">Foundry IQ Neural Gateway Submission.</p>
-        <form id="demoForm">
+        <form action="https://formsubmit.co/https://formspree.io/f/xaqdwvdg" method="POST">
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" id="senderName" required placeholder="Jane Doe">
+                <input type="text" name="name" id="senderName" required placeholder="Jane Doe">
             </div>
             <div class="form-group">
                 <label>Work Email</label>
-                <input type="email" id="senderEmail" required placeholder="jane@healthcare.com">
+                <input type="email" name="email" id="senderEmail" required placeholder="jane@healthcare.com">
             </div>
             <div class="form-group">
                 <label>Project Interest</label>
-                <textarea id="message" rows="3" placeholder="How can Monica assist you?"></textarea>
+                <textarea name="message" id="message" rows="3" placeholder="How can Monica assist you?"></textarea>
             </div>
-            <button type="submit" id="submitBtn" class="btn-investor" style="width: 100%;">Send Request</button>
+            <button type="submit" class="btn-investor" style="width: 100%;">Send Request</button>
             <button type="button" onclick="closeDemo()" style="background:none; border:none; color: var(--text-muted); margin-top: 15px; cursor: pointer; width:100%; font-size: 13px;">Dismiss</button>
         </form>
     </div>
@@ -283,49 +283,6 @@
     const modal = document.getElementById('demoModal');
     function openDemo() { modal.style.display = 'flex'; }
     function closeDemo() { modal.style.display = 'none'; }
-
-    // --- AZURE FUNCTION CONNECTION ---
-    document.getElementById('demoForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitBtn');
-        const originalText = submitBtn.innerText;
-        
-        submitBtn.innerText = "Connecting to Azure...";
-        submitBtn.disabled = true;
-
-        const payload = {
-            name: document.getElementById('senderName').value,
-            email: document.getElementById('senderEmail').value,
-            message: document.getElementById('message').value
-        };
-
-        // TARGET URL: Corrected to point to 'EMAIL1' function
-        // Note: The host URL remains the same, but the final segment is now EMAIL1
-        const azureFunctionUrl = 'https://azure-node-aubzh5b6cfava3dz.canadacentral-01.azurewebsites.net/api/EMAIL1';
-
-        try {
-            const response = await fetch(azureFunctionUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                alert("Success! Your request has been sent to EMAIL1 via Azure.");
-                closeDemo();
-                document.getElementById('demoForm').reset();
-            } else {
-                const errorData = await response.text();
-                throw new Error("Azure Error: " + response.status + " " + errorData);
-            }
-        } catch (error) {
-            console.error("Transmission Failed:", error);
-            alert("Error sending email: " + error.message + "\n\n(Tip: Ensure CORS is enabled and function is named 'EMAIL1')");
-        } finally {
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
-        }
-    });
 
     // Neural Background Animation
     const canvas = document.getElementById('neuralCanvas');
