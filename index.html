@@ -152,7 +152,11 @@
     <div class="glass-panel modal-content">
         <h2 style="margin-bottom: 8px;">Request a Demo</h2>
         <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 14px;">Foundry IQ Neural Gateway Submission.</p>
+        
         <form action="https://formspree.io/f/xaqdwvdg" method="POST">
+            <input type="hidden" name="_subject" value="New Monica Demo Request!">
+            <input type="hidden" name="_next" value="YOUR_WEBSITE_URL">
+            
             <div class="form-group">
                 <label>Full Name</label>
                 <input type="text" name="name" id="senderName" required placeholder="Jane Doe">
