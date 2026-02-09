@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Monica: 2026 Master Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .chart-container { position: relative; width: 100%; height: 300px; margin: auto; }
+        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #06b6d4, #d946ef); transform: translateX(-50%); z-index: 0; }
+        @media (max-width: 767px) { .timeline-line { display: none; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 z-50 glass-panel border-b border-slate-700 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span class="text-xl font-bold text-cyan-400">PROJECT MONICA</span>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-300 hover:text-white">← Return Home</a>
+                <span class="text-xs bg-cyan-900/30 text-cyan-400 px-2 py-1 rounded border border-cyan-500/30">2026 Plan</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 space-y-16">
+        <header class="text-center space-y-4">
+            <h1 class="text-5xl font-black text-white">The <span class="text-cyan-400">Ambient Soul</span></h1>
+            <p class="text-slate-400 max-w-2xl mx-auto">Visualizing the 2026 Senior Care Mesh Ecosystem.</p>
+        </header>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-panel p-6 rounded-xl border-t-4 border-cyan-500">
+                <div class="text-xs text-slate-400 uppercase font-bold">Performance</div>
+                <div class="text-4xl font-black text-white">67 TOPS</div>
+            </div>
+            <div class="glass-panel p-6 rounded-xl border-t-4 border-fuchsia-500">
+                <div class="text-xs text-slate-400 uppercase font-bold">Cost Saving</div>
+                <div class="text-4xl font-black text-white">94%</div>
+            </div>
+            <div class="glass-panel p-6 rounded-xl border-t-4 border-violet-500">
+                <div class="text-xs text-slate-400 uppercase font-bold">Privacy</div>
+                <div class="text-4xl font-black text-white">100%</div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-cyan-300 mb-4">Hardware Benchmarking</h3>
+                <div class="chart-container">
+                    <canvas id="hardwareChart"></canvas>
+                </div>
+            </div>
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-fuchsia-300 mb-4">Capabilities Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-8 relative">
+            <div class="timeline-line"></div>
+            <div class="relative z-10 space-y-12">
+                <div class="flex justify-start md:w-1/2 pr-8">
+                    <div class="glass-panel p-4 rounded-lg border-r-4 border-cyan-500 ml-auto">
+                        <h4 class="font-bold">Q1: The Anchor</h4>
+                        <p class="text-sm text-slate-400">Jetson Orin Nano Super Setup</p>
+                    </div>
+                </div>
+                <div class="flex justify-end md:w-1/2 md:ml-auto pl-8">
+                    <div class="glass-panel p-4 rounded-lg border-l-4 border-fuchsia-500 mr-auto">
+                        <h4 class="font-bold">Q2: Empowerment</h4>
+                        <p class="text-sm text-slate-400">Foundry IQ Activation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                console.error("Chart.js not loaded yet. Retrying...");
+                setTimeout(initCharts, 500);
+                return;
+            }
+
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                }
+            };
+
+            // Hardware
+            new Chart(document.getElementById('hardwareChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Orin Nano Super', 'Orin Nano', 'Pi 5'],
+                    datasets: [{ label: 'TOPS', data: [67, 40, 2], backgroundColor: '#06b6d4' }]
+                },
+                options: commonOptions
+            });
+
+            // Radar
+            new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Cost', 'Speed', 'Privacy', 'Empathy', 'Uptime'],
+                    datasets: [{ 
+                        label: 'Monica', 
+                        data: [95, 98, 100, 85, 100], 
+                        borderColor: '#d946ef', 
+                        backgroundColor: 'rgba(217, 70, 239, 0.2)' 
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { grid: { color: 'rgba(255,255,255,0.1)' }, pointLabels: { color: '#cbd5e1' }, ticks: { display: false } }
+                    },
+                    plugins: { legend: { labels: { color: '#94a3b8' } } }
+                }
+            });
+        }
+
+        window.addEventListener('load', initCharts);
+    </script>
+</body>
+</html>
