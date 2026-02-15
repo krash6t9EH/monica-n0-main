@@ -224,6 +224,46 @@
     function openDemo() { modal.style.display = 'flex'; }
     function closeDemo() { modal.style.display = 'none'; }
 
+    // Handle form submission
+    const form = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+        
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                formStatus.innerText = 'Request sent successfully!';
+                form.reset();
+                setTimeout(() => {
+                    closeDemo();
+                    formStatus.innerText = '';
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Send Request';
+                }, 1500);
+            } else {
+                formStatus.innerText = 'Error sending request. Please try again.';
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Send Request';
+            }
+        } catch (error) {
+            formStatus.innerText = 'Error sending request. Please try again.';
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Send Request';
+        }
+    });
+
     const slider = document.getElementById('companionSlider');
     const hoursLabel = document.getElementById('hoursLabel');
     const valHappiness = document.getElementById('valHappiness');
