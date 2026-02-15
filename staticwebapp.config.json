@@ -10,7 +10,7 @@
     "exclude": [
       "/info/*",
       "/pitch/*",
-      "/*.{png,jpg,jpeg,gif,svg,ico}",
+      "/*.{png,jpg,jpeg,gif,svg,ico,webp}",
       "/*.css",
       "/*.js"
     ]
