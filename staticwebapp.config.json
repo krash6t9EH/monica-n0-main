@@ -6,6 +6,13 @@
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html"
+    "rewrite": "/index.html",
+    "exclude": [
+      "/info/*",
+      "/pitch/*",
+      "/*.{png,jpg,jpeg,gif,svg,ico}",
+      "/*.css",
+      "/*.js"
+    ]
   }
 }

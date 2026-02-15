@@ -3,136 +3,484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Monica: 2026 Master Plan</title>
+    <title>Project Monica: 2026 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- 
+        Palette: "Neon Cyber-Care" 
+        Background: Slate 900 (#0f172a)
+        Text: Slate 50 (#f8fafc)
+        Primary Accent: Cyan 500 (#06b6d4)
+        Secondary Accent: Fuchsia 500 (#d946ef)
+        Tertiary Accent: Violet 500 (#8b5cf6)
+        
+        CONFIRMED: NO SVG USED. NO MERMAID JS USED. 
+    -->
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: sans-serif; }
-        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .chart-container { position: relative; width: 100%; height: 300px; margin: auto; }
-        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #06b6d4, #d946ef); transform: translateX(-50%); z-index: 0; }
-        @media (max-width: 767px) { .timeline-line { display: none; } }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .neon-text-fuchsia {
+            text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%; /* Adapts to grid column */
+            height: 300px;
+            max-height: 400px;
+        }
+        .vitals-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-cyan-500 selection:text-white pb-20">
 
-    <nav class="sticky top-0 z-50 glass-panel border-b border-slate-700 p-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <span class="text-xl font-bold text-cyan-400">PROJECT MONICA</span>
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="text-slate-300 hover:text-white">← Return Home</a>
-                <span class="text-xs bg-cyan-900/30 text-cyan-400 px-2 py-1 rounded border border-cyan-500/30">2026 Plan</span>
+    <!-- Header -->
+    <nav class="sticky top-0 z-50 glass-panel border-b border-slate-700 shadow-lg mb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center font-bold text-slate-900 text-xl shadow-[0_0_15px_rgba(6,182,212,0.8)]">M</div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-fuchsia-500 neon-text-cyan tracking-wide">
+                            MONICA
+                        </h1>
+                        <p class="text-xs text-cyan-400 font-mono tracking-widest">TOTAL CARE PROXY v5.7</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-baseline space-x-4">
+                    <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-600">
+                        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <span class="text-xs font-medium text-slate-300">SYSTEM ONLINE</span>
+                    </div>
+                    <span class="text-slate-500 text-sm">|</span>
+                    <span class="text-slate-400 text-sm font-medium">Feb 2026</span>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 space-y-16">
-        <header class="text-center space-y-4">
-            <h1 class="text-5xl font-black text-white">The <span class="text-cyan-400">Ambient Soul</span></h1>
-            <p class="text-slate-400 max-w-2xl mx-auto">Visualizing the 2026 Senior Care Mesh Ecosystem.</p>
-        </header>
+    <!-- Main Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass-panel p-6 rounded-xl border-t-4 border-cyan-500">
-                <div class="text-xs text-slate-400 uppercase font-bold">Performance</div>
-                <div class="text-4xl font-black text-white">67 TOPS</div>
-            </div>
-            <div class="glass-panel p-6 rounded-xl border-t-4 border-fuchsia-500">
-                <div class="text-xs text-slate-400 uppercase font-bold">Cost Saving</div>
-                <div class="text-4xl font-black text-white">94%</div>
-            </div>
-            <div class="glass-panel p-6 rounded-xl border-t-4 border-violet-500">
-                <div class="text-xs text-slate-400 uppercase font-bold">Privacy</div>
-                <div class="text-4xl font-black text-white">100%</div>
-            </div>
+        <!-- INTRO SECTION -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2">Morning Briefing</h2>
+            <p class="text-slate-400 max-w-2xl">
+                Good morning. The home mesh is active. Your vitals are stable, and the Regina Paratransit is scheduled for 2:00 PM.
+            </p>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="glass-panel p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-cyan-300 mb-4">Hardware Benchmarking</h3>
-                <div class="chart-container">
-                    <canvas id="hardwareChart"></canvas>
+        <!-- TOP ROW: VITALS & HOME STATUS -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- MODULE 1: VITALS RING (Health Visualizer) -->
+            <div class="lg:col-span-1 glass-panel p-6 rounded-2xl border-t-4 border-cyan-500 relative overflow-hidden">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="text-cyan-400">❤</span> Live Vitals
+                        </h3>
+                        <p class="text-xs text-slate-400">Source: Smart Ring (Tier 3)</p>
+                    </div>
+                    <span class="px-2 py-1 rounded bg-green-500/20 text-green-400 text-xs font-bold">STABLE</span>
                 </div>
-            </div>
-            <div class="glass-panel p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-fuchsia-300 mb-4">Capabilities Analysis</h3>
-                <div class="chart-container">
-                    <canvas id="radarChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <section class="space-y-8 relative">
-            <div class="timeline-line"></div>
-            <div class="relative z-10 space-y-12">
-                <div class="flex justify-start md:w-1/2 pr-8">
-                    <div class="glass-panel p-4 rounded-lg border-r-4 border-cyan-500 ml-auto">
-                        <h4 class="font-bold">Q1: The Anchor</h4>
-                        <p class="text-sm text-slate-400">Jetson Orin Nano Super Setup</p>
+                
+                <div class="flex flex-col items-center justify-center py-4">
+                    <!-- CSS Pulse Ring Visual -->
+                    <div class="relative w-40 h-40 flex items-center justify-center rounded-full border-4 border-slate-700 bg-slate-800/50 vitals-pulse mb-4">
+                        <div class="text-center">
+                            <span class="block text-4xl font-black text-white">72</span>
+                            <span class="text-xs text-cyan-400 font-bold tracking-widest">BPM</span>
+                        </div>
+                        <!-- Canvas Overlay for 'Wave' effect -->
+                        <div class="absolute inset-0 w-full h-full">
+                            <canvas id="heartbeatCanvas"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 w-full mt-2">
+                        <div class="bg-slate-800/50 p-3 rounded-lg text-center">
+                            <div class="text-slate-400 text-xs">O2 Saturation</div>
+                            <div class="text-white font-bold text-lg">98%</div>
+                        </div>
+                        <div class="bg-slate-800/50 p-3 rounded-lg text-center">
+                            <div class="text-slate-400 text-xs">Stress Level</div>
+                            <div class="text-cyan-400 font-bold text-lg">Low</div>
+                        </div>
                     </div>
                 </div>
-                <div class="flex justify-end md:w-1/2 md:ml-auto pl-8">
-                    <div class="glass-panel p-4 rounded-lg border-l-4 border-fuchsia-500 mr-auto">
-                        <h4 class="font-bold">Q2: Empowerment</h4>
-                        <p class="text-sm text-slate-400">Foundry IQ Activation</p>
+            </div>
+
+            <!-- MODULE 4: HOME MESH STATUS -->
+            <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border-t-4 border-fuchsia-500">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="text-fuchsia-400">🏠</span> Home Soul Status
+                        </h3>
+                        <p class="text-xs text-slate-400">Matter/Thread Mesh: Active</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs">Indoors: 22°C</span>
+                        <span class="px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs">Humidity: 45%</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Safety Check Panel -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Safety Protocols</h4>
+                        
+                        <div class="flex items-center justify-between p-3 bg-slate-800/40 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-green-500/20 flex items-center justify-center text-green-400">🔒</div>
+                                <span class="text-slate-200 text-sm font-medium">Front Door</span>
+                            </div>
+                            <span class="text-green-400 text-xs font-bold">LOCKED</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-slate-800/40 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-green-500/20 flex items-center justify-center text-green-400">🍳</div>
+                                <span class="text-slate-200 text-sm font-medium">Kitchen Stove</span>
+                            </div>
+                            <span class="text-green-400 text-xs font-bold">OFF</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-slate-800/40 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-green-500/20 flex items-center justify-center text-green-400">🌡️</div>
+                                <span class="text-slate-200 text-sm font-medium">Thermal Vision</span>
+                            </div>
+                            <span class="text-green-400 text-xs font-bold">MONITORING</span>
+                        </div>
+                    </div>
+
+                    <!-- Room Presence Chart -->
+                    <div class="relative h-48 md:h-auto">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Activity Heatmap</h4>
+                        <div class="chart-container" style="height: 180px;">
+                            <canvas id="roomActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE ROW: LOGISTICS & FAMILY -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- MODULE 2: LOGISTICS MAP (Regina Hub) -->
+            <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border-t-4 border-violet-500">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="text-violet-400">🗺</span> Logistics Proxy
+                        </h3>
+                        <p class="text-xs text-slate-400">Context: Regina, SK Hub</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Radar Map Visualization -->
+                    <div class="chart-container">
+                        <canvas id="logisticsMapChart"></canvas>
+                        <!-- Overlay Legend -->
+                        <div class="absolute bottom-2 left-2 bg-slate-900/80 p-2 rounded border border-slate-700 text-xs text-slate-300">
+                            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> You (Home)</div>
+                            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-fuchsia-400"></span> Transport</div>
+                            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-400"></span> Grocery</div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline / List -->
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-800/50 rounded-xl border-l-4 border-cyan-500">
+                            <div class="text-xs text-cyan-400 font-bold">IN PROGRESS • ETA 14:15</div>
+                            <div class="text-white font-bold text-lg">Instacart Delivery</div>
+                            <div class="text-slate-400 text-sm">Sobeys (Regina East) • 12 Items</div>
+                            <div class="mt-2 w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-cyan-500 h-full w-3/4"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-800/50 rounded-xl border-l-4 border-fuchsia-500">
+                            <div class="text-xs text-fuchsia-400 font-bold">UPCOMING • 16:00</div>
+                            <div class="text-white font-bold text-lg">Dr. Smith (Telehealth)</div>
+                            <div class="text-slate-400 text-sm">Follow-up on blood pressure.</div>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button class="flex-1 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-bold text-white transition">CALL UBER</button>
+                            <button class="flex-1 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-bold text-white transition">ADD GROCERY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 3: FAMILY TAPESTRY -->
+            <div class="lg:col-span-1 glass-panel p-6 rounded-2xl border-t-4 border-yellow-500">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <span class="text-yellow-400">📸</span> Family Tapestry
+                        </h3>
+                        <p class="text-xs text-slate-400">Digital Memoirs & Connection</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-4 mb-4 text-center">
+                    <div class="w-full h-32 bg-slate-700 rounded-lg mb-3 flex items-center justify-center text-slate-500 italic">
+                        [Photo: Grandson at Soccer]
+                    </div>
+                    <p class="text-white text-sm font-medium">"Liam scored his first goal yesterday!"</p>
+                    <p class="text-slate-400 text-xs mt-1">Uploaded by Sarah • 2 hours ago</p>
+                </div>
+
+                <div class="space-y-2">
+                    <button class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-bold text-sm shadow-lg hover:from-cyan-500 hover:to-cyan-400 transition flex items-center justify-center gap-2">
+                        <span>📞</span> Call Sarah Video
+                    </button>
+                    <button class="w-full py-3 rounded-xl bg-slate-700 text-slate-300 font-bold text-sm hover:bg-slate-600 transition flex items-center justify-center gap-2">
+                        <span>🎙</span> Record a Story
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECH SPECS FOOTER -->
+        <section class="glass-panel p-6 rounded-2xl">
+            <h3 class="text-lg font-bold text-white mb-4">System Performance (Feb 2026)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="techSpecsChart"></canvas>
+                </div>
+                <div class="flex flex-col justify-center space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                        <span class="text-slate-400 text-sm">Local Inference (Orin Nano Super)</span>
+                        <span class="text-cyan-400 font-bold">67 TOPS</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                        <span class="text-slate-400 text-sm">Voice Latency (Azure Neural HD)</span>
+                        <span class="text-fuchsia-400 font-bold">240ms</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                        <span class="text-slate-400 text-sm">Fall Detection Accuracy</span>
+                        <span class="text-green-400 font-bold">99.2%</span>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <script>
-        function initCharts() {
-            if (typeof Chart === 'undefined') {
-                console.error("Chart.js not loaded yet. Retrying...");
-                setTimeout(initCharts, 500);
-                return;
+        window.onload = function() {
+            // Label wrapping helper for Chart.js
+            function wrapLabel(label) {
+                if (typeof label === 'string' && label.length > 16) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = words[0];
+                    for (let i = 1; i < words.length; i++) {
+                        if (currentLine.length + 1 + words[i].length <= 16) {
+                            currentLine += ' ' + words[i];
+                        } else {
+                            lines.push(currentLine);
+                            currentLine = words[i];
+                        }
+                    }
+                    lines.push(currentLine);
+                    return lines;
+                }
+                return label;
             }
 
+            // Common Chart Options
             const commonOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#94a3b8' } } },
-                scales: {
-                    y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                plugins: {
+                    legend: { labels: { color: '#94a3b8' } },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
                 }
             };
 
-            // Hardware
-            new Chart(document.getElementById('hardwareChart'), {
+            // 1. Heartbeat Canvas (Simple Sine Wave Animation)
+            const hbCanvas = document.getElementById('heartbeatCanvas');
+            const hbCtx = hbCanvas.getContext('2d');
+            // Set canvas resolution match layout
+            hbCanvas.width = 160; 
+            hbCanvas.height = 160;
+            
+            let xOffset = 0;
+            function drawHeartbeat() {
+                hbCtx.clearRect(0, 0, hbCanvas.width, hbCanvas.height);
+                hbCtx.beginPath();
+                hbCtx.strokeStyle = 'rgba(6, 182, 212, 0.6)';
+                hbCtx.lineWidth = 2;
+                
+                for (let x = 0; x < hbCanvas.width; x++) {
+                    // Simulating ECG wave
+                    let y = 80;
+                    const phase = (x + xOffset) % 160;
+                    
+                    if (phase > 60 && phase < 100) {
+                         // The "beat"
+                         y -= Math.sin((phase - 60) * 0.4) * 30;
+                         if(phase > 75 && phase < 85) y += 40; // Spikes
+                    }
+                    
+                    if (x === 0) hbCtx.moveTo(x, y);
+                    else hbCtx.lineTo(x, y);
+                }
+                hbCtx.stroke();
+                xOffset -= 2;
+                requestAnimationFrame(drawHeartbeat);
+            }
+            drawHeartbeat();
+
+
+            // 2. Room Activity Chart (Bar)
+            const ctxRoom = document.getElementById('roomActivityChart').getContext('2d');
+            new Chart(ctxRoom, {
                 type: 'bar',
                 data: {
-                    labels: ['Orin Nano Super', 'Orin Nano', 'Pi 5'],
-                    datasets: [{ label: 'TOPS', data: [67, 40, 2], backgroundColor: '#06b6d4' }]
-                },
-                options: commonOptions
-            });
-
-            // Radar
-            new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: {
-                    labels: ['Cost', 'Speed', 'Privacy', 'Empathy', 'Uptime'],
-                    datasets: [{ 
-                        label: 'Monica', 
-                        data: [95, 98, 100, 85, 100], 
-                        borderColor: '#d946ef', 
-                        backgroundColor: 'rgba(217, 70, 239, 0.2)' 
+                    labels: ['Living Room', 'Kitchen', 'Bedroom', 'Bath'].map(wrapLabel),
+                    datasets: [{
+                        label: 'Hours Occupied Today',
+                        data: [4.5, 1.2, 8.0, 0.8],
+                        backgroundColor: [
+                            'rgba(6, 182, 212, 0.7)',
+                            'rgba(139, 92, 246, 0.5)',
+                            'rgba(51, 65, 85, 0.5)', 
+                            'rgba(51, 65, 85, 0.5)'
+                        ],
+                        borderRadius: 4
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    ...commonOptions,
                     scales: {
-                        r: { grid: { color: 'rgba(255,255,255,0.1)' }, pointLabels: { color: '#cbd5e1' }, ticks: { display: false } }
+                        y: { display: false },
+                        x: { ticks: { color: '#94a3b8', font: {size: 10} }, grid: {display: false} }
                     },
-                    plugins: { legend: { labels: { color: '#94a3b8' } } }
+                    plugins: { legend: { display: false } }
                 }
             });
-        }
 
-        window.addEventListener('load', initCharts);
+            // 3. Logistics Map (Scatter Plot "Radar")
+            const ctxMap = document.getElementById('logisticsMapChart').getContext('2d');
+            new Chart(ctxMap, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Home Base',
+                            data: [{x: 0, y: 0}],
+                            backgroundColor: '#06b6d4',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Instacart Driver',
+                            data: [{x: 2.5, y: 1.5}], // Arbitrary coords relative to home
+                            backgroundColor: '#4ade80',
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Paratransit',
+                            data: [{x: -3, y: -2}],
+                            backgroundColor: '#d946ef',
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        x: { min: -5, max: 5, display: false },
+                        y: { min: -5, max: 5, display: false }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 4. Tech Specs Chart (Horizontal Bar)
+            const ctxSpecs = document.getElementById('techSpecsChart').getContext('2d');
+            new Chart(ctxSpecs, {
+                type: 'bar',
+                indexAxis: 'y',
+                data: {
+                    labels: ['GPT-5.1 Reasoning', 'Audio Processing', 'Thermal Analysis', 'Network Sync'].map(wrapLabel),
+                    datasets: [{
+                        label: 'Resource Usage (%)',
+                        data: [45, 15, 60, 10],
+                        backgroundColor: [
+                            '#d946ef', 
+                            '#8b5cf6', 
+                            '#06b6d4', 
+                            '#64748b'
+                        ],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        x: { display: false, max: 100 },
+                        y: { ticks: { color: '#cbd5e1' }, grid: {display: false} }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        };
     </script>
 </body>
 </html>

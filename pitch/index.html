@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monica | Pitch Deck</title>
+    <style>
+        :root { 
+            --bg: #050505; 
+            --text: #f0f0f0; 
+            --accent: #D4AF37; 
+            --card-width: 85vw;
+            --card-height: 85vh;
+        }
+        
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; box-sizing: border-box; }
+
+        body { 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', system-ui, sans-serif; 
+            overflow-x: hidden; 
+        }
+        
+        .scroller { height: 700vh; scroll-behavior: smooth; transition: filter 1.5s ease; } 
+
+        /* Ultra-Minimal Exit Button */
+        .exit-btn {
+            position: fixed; top: 40px; left: 40px; z-index: 2000;
+            cursor: pointer; text-decoration: none; color: var(--text);
+            background: transparent;
+            padding: 5px; border-radius: 8px; 
+            font-weight: 500; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 2px; transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 10px;
+            opacity: 0.6;
+        }
+        
+        .exit-btn svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
+        .exit-btn:hover { opacity: 1; color: var(--accent); transform: translateX(-3px); }
+
+        /* Transition Overlay */
+        #exit-overlay {
+            position: fixed; inset: 0; z-index: 3000;
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 1.2s ease;
+        }
+
+        #exit-overlay.active { opacity: 1; pointer-events: all; }
+
+        .monica-face {
+            width: 300px; height: 300px;
+            background: url('./assets/1hero.webp') center/cover;
+            border-radius: 50%; filter: sepia(0.2) brightness(0.9);
+            box-shadow: 0 0 80px rgba(212, 175, 55, 0.1);
+            opacity: 0; transform: scale(0.9);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        @keyframes face-glow {
+            0%, 100% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.1); }
+            50% { box-shadow: 0 0 100px rgba(212, 175, 55, 0.25); }
+        }
+
+        .exit-text {
+            margin-top: 40px; text-align: center;
+            opacity: 0; transition: opacity 1.5s ease;
+        }
+
+        .exit-text h2 { font-weight: 300; letter-spacing: 12px; text-transform: uppercase; margin: 0; font-size: 2rem; }
+        .exit-text span { color: var(--accent); display: block; margin-top: 15px; letter-spacing: 4px; font-size: 0.9rem; }
+
+        /* Slides */
+        .slide {
+            height: 100vh; width: 100%; position: sticky; top: 0;
+            display: flex; justify-content: center; align-items: center;
+            view-timeline-name: --slide-tl; perspective: 1200px;
+        }
+
+        .card {
+            position: relative; width: var(--card-width); height: var(--card-height);
+            border-radius: 40px; background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 40px; border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.9);
+            will-change: transform, opacity, filter;
+            animation: stack-and-fade linear both;
+            animation-timeline: --slide-tl; animation-range: exit 0% exit 100%;
+        }
+
+        @keyframes stack-and-fade {
+            0% { transform: scale(1) translateY(0); opacity: 1; filter: brightness(1) blur(0px); }
+            100% { transform: scale(0.85) translateY(-10vh); opacity: 0; filter: brightness(0) blur(20px); }
+        }
+
+        /* Floating Minimal Info Box */
+        .glass-box {
+            position: fixed; bottom: 40px; left: 40px; z-index: 100;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .glass-box h1 { 
+            font-size: 1.8rem; margin: 0; font-weight: 800; 
+            letter-spacing: -1px; color: var(--accent);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+        
+        .glass-box p { 
+            font-size: 0.95rem; opacity: 0.9; margin: 5px 0 0 0; 
+            font-weight: 400; letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+        }
+
+        @media (max-width: 768px) {
+            :root { --card-width: 92vw; --card-height: 78vh; }
+            .glass-box { bottom: 30px; left: 30px; }
+            .glass-box h1 { font-size: 1.4rem; }
+            .glass-box p { font-size: 0.85rem; }
+        }
+
+        /* Background Images */
+        #s1 .card { background-image: url('./assets/1hero.webp'); }
+        #s2 .card { background-image: url('./assets/2problem (2).webp'); }
+        #s3 .card { background-image: url('./assets/3mon2 (2).webp'); }
+        #s4 .card { background-image: url('./assets/4mon3.webp'); }
+        #s5 .card { background-image: url('./assets/5economy (2).webp'); }
+        #s6 .card { background-image: url('./assets/6ask (2).webp'); }
+        #s7 .card { background-image: url('./assets/7laas (2).webp'); }
+    </style>
+</head>
+<body>
+
+    <div id="exit-overlay">
+        <div class="monica-face" id="monica-face"></div>
+        <div class="exit-text" id="exit-text">
+            <h2>Monica</h2>
+            <span>Always There</span>
+        </div>
+    </div>
+
+    <div class="exit-btn" onclick="triggerExit()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Exit
+    </div>
+
+    <div id="place-card" class="glass-box">
+        <h1>Monica</h1>
+        <p>The vision starts here.</p>
+    </div>
+
+    <main class="scroller" id="main-scroller">
+        <section id="s1" class="slide"><div class="card"></div></section>
+        <section id="s2" class="slide"><div class="card"></div></section>
+        <section id="s3" class="slide"><div class="card"></div></section>
+        <section id="s4" class="slide"><div class="card"></div></section>
+        <section id="s5" class="slide"><div class="card"></div></section>
+        <section id="s6" class="slide"><div class="card"></div></section>
+        <section id="s7" class="slide"><div class="card"></div></section>
+    </main>
+
+    <script>
+        const placeCard = document.getElementById('place-card');
+        const scroller = document.getElementById('main-scroller');
+        const slides = [
+            { title: 'Monica', desc: 'The vision starts here.' },
+            { title: 'The Gap', desc: 'Solving aging care friction.' },
+            { title: 'The Pivot', desc: 'Engineering a smarter tomorrow.' },
+            { title: 'Utility', desc: 'Fast. Native. Scalable.' },
+            { title: 'Economy', desc: 'Data behind the growth.' },
+            { title: 'The Ask', desc: 'Partnership & vision.' },
+            { title: 'Build with Us', desc: 'digamoni.ca' }
+        ];
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const slideHeight = window.innerHeight;
+            const currentSlide = Math.min(Math.floor((scrollPosition + slideHeight/2) / slideHeight), slides.length - 1);
+            placeCard.querySelector('h1').textContent = slides[currentSlide].title;
+            placeCard.querySelector('p').textContent = slides[currentSlide].desc;
+        });
+
+        function triggerExit() {
+            const overlay = document.getElementById('exit-overlay');
+            const face = document.getElementById('monica-face');
+            const text = document.getElementById('exit-text');
+            
+            scroller.style.filter = "blur(20px)";
+            placeCard.style.opacity = "0";
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                face.style.opacity = '1';
+                face.style.transform = 'scale(1)';
+                face.style.animation = "face-glow 3s infinite ease-in-out";
+            }, 300);
+
+            setTimeout(() => {
+                face.style.opacity = '0';
+                face.style.transform = 'scale(1.1)';
+                text.style.opacity = '1';
+            }, 2500);
+
+            setTimeout(() => {
+                window.location.href = "https://www.digamoni.ca"; 
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -5,5 +5,8 @@
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.projectLanguageModel": 4,
-    "azureFunctions.preDeployTask": "npm prune (functions)"
+    "azureFunctions.preDeployTask": "npm prune (functions)",
+    "python.autoComplete.extraPaths": [
+        "c:\\Users\\LENOVO\\.kiro\\extensions\\continue.continue-0.0.412-win32-x64"
+    ]
 }
